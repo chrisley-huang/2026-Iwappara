@@ -17,14 +17,17 @@
         .banner-h { height: 260px; }
         .content-card { margin-top: -45px; border-radius: 40px 40px 0 0; background: white; min-height: 85vh; position: relative; z-index: 10; padding-bottom: 120px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        
         .floating-tabs {
             position: absolute; right: 16px; top: 195px; z-index: 50;
             display: flex; gap: 8px; background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 50px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5);
         }
+
         .item-card { transition: all 0.2s ease; border: 1px solid #f1f5f9; }
         .item-card:active { transform: scale(0.98); background-color: #f8fafc; }
+
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-f-up { animation: fadeInUp 0.4s ease-out forwards; }
     </style>
@@ -35,6 +38,7 @@
     <div class="banner-h w-full relative overflow-hidden">
         <img src="p1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=800&q=80'">
         <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        
         <div class="floating-tabs">
             <button v-for="tab in tabs" :key="tab.id" @click="currentTab = tab.id"
                     :class="['p-2 rounded-full transition-all', currentTab === tab.id ? 'bg-blue-600 text-white shadow-md' : 'text-gray-400']">
@@ -44,6 +48,7 @@
     </div>
 
     <div class="content-card shadow-2xl">
+        
         <div v-if="currentTab === 'itinerary'" class="p-6">
             <div class="flex overflow-x-auto no-scrollbar gap-4 mb-6">
                 <div v-for="d in dates" :key="d.full" @click="selectedDate = d.full"
@@ -61,7 +66,9 @@
                     </div>
                     <div>
                         <div class="text-2xl font-black text-blue-900">{{ weather.temp }}°C</div>
-                        <div class="text-[11px] text-blue-400 font-bold uppercase tracking-wide">{{ weather.location }} · {{ weather.desc }}</div>
+                        <div class="text-[11px] text-blue-400 font-bold uppercase tracking-wide">
+                            {{ weather.location }} · {{ weather.desc }}
+                        </div>
                     </div>
                 </div>
                 <div class="text-right">
@@ -72,15 +79,19 @@
 
             <div id="itinerary-list" class="space-y-4">
                 <div v-for="(item, idx) in currentItems" :key="item.id" class="animate-f-up">
-                    <div :class="['item-card p-5 rounded-[2.2rem] relative overflow-hidden', item.category === '航班' ? 'bg-slate-900 text-white' : 'bg-white shadow-sm']">
+                    <div :class="['item-card p-5 rounded-[2.2rem] relative overflow-hidden', 
+                                  item.category === '航班' ? 'bg-slate-900 text-white border-none' : 'bg-white shadow-sm']">
                         <div @click="openLink(item.link)" class="flex justify-between items-start cursor-pointer">
                             <div class="flex-1">
-                                <span :class="['text-[10px] px-2 py-1 rounded-lg font-black uppercase tracking-widest', item.category === '航班' ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-500']">{{ item.category }}</span>
+                                <span :class="['text-[10px] px-2 py-1 rounded-lg font-black uppercase tracking-widest', 
+                                               item.category === '航班' ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-500']">
+                                    {{ item.category }}
+                                </span>
                                 <div class="flex items-center gap-2 mt-2">
                                     <span v-if="item.time" class="text-sm font-black text-blue-400">{{ item.time }}</span>
-                                    <h3 class="font-bold text-lg leading-tight">{{ item.name }}</h3>
+                                    <h3 class="font-bold text-lg leading-tight text-gray-800">{{ item.name }}</h3>
                                 </div>
-                                <p v-if="item.note" class="mt-2 text-xs opacity-60 italic">{{ item.note }}</p>
+                                <p v-if="item.note" class="mt-2 text-xs opacity-60 leading-relaxed italic">{{ item.note }}</p>
                             </div>
                             <div class="flex flex-col items-end gap-6">
                                 <i data-lucide="grip-vertical" class="handle w-5 h-5 text-gray-200 cursor-move"></i>
@@ -89,48 +100,75 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="currentItems.length === 0" class="text-center py-10 text-gray-300 font-bold italic">Enjoy your free time!</div>
             </div>
         </div>
 
-        <div v-if="currentTab === 'info'" class="p-6 space-y-8 animate-f-up">
+        <div v-if="currentTab === 'info'" class="p-6 space-y-6 animate-f-up">
             <section class="bg-blue-50 rounded-[2.5rem] p-6 border border-blue-100">
-                <h2 class="text-xs font-black text-blue-400 mb-4 uppercase tracking-widest flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> 匯率換算 (0.21)</h2>
+                <h2 class="text-xs font-black text-blue-400 mb-4 uppercase tracking-widest flex items-center gap-2">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> 匯率換算 (0.21)
+                </h2>
                 <div class="flex items-center gap-4">
-                    <input type="number" v-model="jpyInput" class="w-1/2 p-4 bg-white rounded-2xl text-xl font-black outline-none shadow-sm">
+                    <input type="number" v-model="jpyInput" class="w-1/2 p-4 bg-white rounded-2xl text-xl font-black outline-none border-none shadow-sm">
                     <i data-lucide="arrow-right" class="text-blue-200"></i>
                     <div class="w-1/2 text-2xl font-black text-blue-600">NT$ {{ Math.round(jpyInput * 0.21).toLocaleString() }}</div>
                 </div>
             </section>
-            <section class="space-y-4">
-                <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">重要資訊</h2>
+
+            <section class="space-y-3">
+                <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">住宿</h2>
                 <div class="p-6 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm">
-                    <h3 class="font-black text-blue-900 text-lg mb-1">Hotel Aster</h3>
-                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">〒949-6101 新潟県南魚沼郡湯沢町湯沢 5-4-2<br>入住：1/18 | 退房：1/24 (6晚)</p>
+                    <h3 class="font-black text-blue-900 text-lg mb-1 leading-tight">Hotel Aster (湯澤)</h3>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">〒949-6101 新潟縣南魚沼郡湯澤町湯澤 5-4-2</p>
                     <div class="grid grid-cols-2 gap-3">
-                        <a href="tel:+81257842809" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-xs font-bold flex items-center justify-center gap-2"><i data-lucide="phone" class="w-3 h-3"></i> 撥打電話</a>
-                        <button @click="openLink('https://maps.app.goo.gl/X8yLTx3BWstoVHKY9 ')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-xs font-bold flex items-center justify-center gap-2"><i data-lucide="map" class="w-3 h-3"></i> 導航飯店</button>
+                        <a href="tel:+81257842809" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-[10px] font-bold flex items-center justify-center gap-2">
+                            <i data-lucide="phone" class="w-3 h-3"></i> 撥打飯店
+                        </a>
+                        <button @click="openLink('https://maps.app.goo.gl/HQ1Lsey7ZT4vw7aB8')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-[10px] font-bold flex items-center justify-center gap-2 shadow-md">
+                            <i data-lucide="map" class="w-3 h-3"></i> 導航飯店
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">雪具租借</h2>
+                <div class="p-6 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm">
+                    <div class="flex justify-between items-start mb-1">
+                        <h3 class="font-black text-blue-900 text-lg leading-tight">BOO SPORTS (湯澤店)</h3>
+                        <span class="bg-green-50 text-green-500 text-[9px] px-2 py-1 rounded-md font-bold">1/19 07:00</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">〒949-6101 新潟縣南魚沼郡湯澤町湯澤 498-1</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button @click="openLink('https://boosports.jp')" class="py-3 bg-gray-50 text-gray-600 rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1">
+                            <i data-lucide="globe" class="w-4 h-4"></i> 官網
+                        </button>
+                        <a href="tel:0257841510" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1">
+                            <i data-lucide="phone" class="w-4 h-4"></i> 電話
+                        </a>
+                        <button @click="openLink('https://maps.app.goo.gl/dYX2c54mzs6Gti6QA  ')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1 shadow-md">
+                            <i data-lucide="map" class="w-4 h-4"></i> 導航
+                        </button>
                     </div>
                 </div>
             </section>
         </div>
 
         <div v-if="currentTab === 'expense'" class="p-6 animate-f-up">
-            <div class="bg-blue-600 rounded-[40px] p-10 text-white mb-8 shadow-2xl shadow-blue-200 relative overflow-hidden">
-                <i data-lucide="banknote" class="absolute -right-10 -bottom-10 w-48 h-48 opacity-10 rotate-12"></i>
-                <p class="text-xs font-bold opacity-60 mb-2 uppercase tracking-widest">Total Estimated</p>
-                <h2 class="text-4xl font-black tracking-tighter">¥ {{ totalExpense.toLocaleString() }}</h2>
-                <div class="mt-2 text-xs font-medium opacity-80">≈ NT$ {{ Math.round(totalExpense * 0.21).toLocaleString() }}</div>
-            </div>
-            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/ruP6h1R8snyNdvTnhxPXJW" target="_blank" class="flex items-center justify-between p-6 bg-[#06C755] text-white rounded-[2rem] font-black shadow-lg shadow-green-100 transition-all active:scale-95">
-                <div class="flex items-center gap-3"><i data-lucide="users" class="w-5 h-5"></i> LINE Split 群組</div>
-                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 px-2">工具</h2>
+            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/ruP6h1R8snyNdvTnhxPXJW" target="_blank" 
+               class="flex items-center justify-between p-8 bg-[#06C755] text-white rounded-[2.5rem] font-black shadow-lg shadow-green-100 transition-all active:scale-95">
+                <div class="flex items-center gap-4 text-lg">
+                    <i data-lucide="users" class="w-6 h-6"></i> LINE Split 分帳群組
+                </div>
+                <i data-lucide="chevron-right" class="w-6 h-6"></i>
             </a>
         </div>
     </div>
 
     <div class="fixed bottom-0 w-full bg-white/90 backdrop-blur-xl border-t border-gray-100 px-10 py-5 flex justify-around items-center z-[100] rounded-t-[40px] shadow-2xl">
-        <button v-for="tab in tabs" :key="tab.id" @click="currentTab = tab.id" :class="['flex flex-col items-center gap-1 transition-all', currentTab === tab.id ? 'text-blue-600 scale-110' : 'text-gray-300']">
+        <button v-for="tab in tabs" :key="tab.id" @click="currentTab = tab.id"
+                :class="['flex flex-col items-center gap-1 transition-all', currentTab === tab.id ? 'text-blue-600 scale-110' : 'text-gray-300']">
             <i :data-lucide="tab.icon" class="w-6 h-6"></i>
             <span class="text-[8px] font-black uppercase tracking-widest">{{ tab.label }}</span>
         </button>
@@ -139,44 +177,48 @@
 
 <script>
     const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
+
     createApp({
         setup() {
             const currentTab = ref('itinerary');
             const selectedDate = ref('2026-01-18');
             const jpyInput = ref(10000);
-            const weather = ref({ temp: '--', feels_like: '--', icon: 'cloud', desc: 'Loading...', location: '' });
+            const weather = ref({ temp: '--', feels_like: '--', icon: 'cloud', desc: '抓取中...', location: 'Tokyo' });
+
             const tabs = [
-                { id: 'itinerary', icon: 'calendar', label: '行程' },
+                { id: 'itinerary', icon: 'map', label: '行程' },
                 { id: 'info', icon: 'info', label: '資訊' },
                 { id: 'expense', icon: 'banknote', label: '分帳' }
             ];
+
             const dates = [
                 { week: 'Fri', day: '16', full: '2026-01-16' }, { week: 'Sat', day: '17', full: '2026-01-17' },
                 { week: 'Sun', day: '18', full: '2026-01-18' }, { week: 'Mon', day: '19', full: '2026-01-19' },
                 { week: 'Tue', day: '20', full: '2026-01-20' }, { week: 'Wed', day: '21', full: '2026-01-21' },
                 { week: 'Thu', day: '22', full: '2026-01-22' }, { week: 'Fri', day: '23', full: '2026-01-23' },
-                { week: 'Sat', day: '24', full: '2026-01-24' }, { week: 'Sun', day: '25', full: '2026-01-25' }
+                { week: 'Sat', day: '24', full: '2026-01-24' }, { week: 'Sun', day: '25', full: '2026-01-25' },
             ];
+
             const allItinerary = ref([
-                { id: 1, date: '2026-01-16', category: '航班', time: '12:50', name: 'CX450 TPE → NRT', note: '抵達成田，前往東京市區', link: 'https://maps.app.goo.gl/BBrthtBMUZVqCWNT9 ' },
+                { id: 1, date: '2026-01-16', category: '航班', time: '12:50', name: 'CX450 TPE → NRT', note: '抵達成田 (16:50)', link: 'https://maps.app.goo.gl/BBrthtBMUZVqCWNT9 ' },
                 { id: 2, date: '2026-01-17', category: '景點', time: 'ALL DAY', name: '東京自由行', note: '東京車站巡禮', link: 'https://maps.app.goo.gl/x9b6XDoSFVieNjPr5' },
                 { id: 3, date: '2026-01-18', category: '新幹線', time: '14:46', name: 'TOKI 325 往新潟', note: '上野發車 → 15:56 抵達越後湯澤', link: 'https://japantravel.navitime.com' },
-                { id: 4, date: '2026-01-18', category: '住宿', time: '16:15', name: 'Hotel Aster Check-in', note: '越後湯澤溫泉飯店', link: 'https://maps.app.goo.gl/X8yLTx3BWstoVHKY9 ' },
+                { id: 4, date: '2026-01-18', category: '住宿', time: '16:15', name: 'Hotel Aster Check-in', note: '入住越後湯澤', link: 'https://maps.app.goo.gl/HQ1Lsey7ZT4vw7aB8' },
                 { id: 5, date: '2026-01-18', category: '美食', time: '17:00', name: '燒肉 Sakaeya', note: '🥩 建議 17:00 開店即入座', link: 'https://share.google/X3fiagZ1saItbdgcX' },
-                { id: 6, date: '2026-01-19', category: '雪具', time: '07:00', name: 'BOO SPORTS 取雪具', note: '租借店：湯澤町湯澤 498-1', link: 'https://maps.app.goo.gl/dYX2c54mzs6Gti6QA  ' },
-                { id: 7, date: '2026-01-19', category: '滑雪', time: '10:00', name: '師傅課 (岩原雪場)', note: '⛷️ 滑雪 Day 1', link: 'https://iwa-ppara.com/' },
-                { id: 8, date: '2026-01-20', category: '滑雪', time: '10:00', name: '自主練習 (岩原雪場)', note: '⛷️ 滑雪 Day 2', link: 'https://iwa-ppara.com/' },
-                { id: 9, date: '2026-01-22', category: '滑雪', time: '10:00', name: '師傅課 (岩原雪場)', note: '⛷️ 滑雪 Day 4', link: 'https://iwa-ppara.com/' },
-                { id: 10, date: '2026-01-23', category: '行程', time: '16:00', name: '歸還雪具 (BOO SPORTS)', note: '滑雪結束，歸還裝備', link: 'https://maps.app.goo.gl/dYX2c54mzs6Gti6QA  ' },
-                { id: 11, date: '2026-01-24', category: '移動', time: '07:02', name: '退房並回東京', note: '搭乘新幹線回東京車站', link: 'https://maps.app.goo.gl/x9b6XDoSFVieNjPr5' },
-                { id: 12, date: '2026-01-25', category: '航班', time: '15:20', name: 'CX451 NRT → TPE', note: '成田二航廈，結束旅程', link: 'https://www.cathaypacific.com' }
+                { id: 6, date: '2026-01-19', category: '雪具', time: '07:00', name: 'BOO SPORTS 取雪具', note: '新潟縣南魚沼郡湯澤町湯澤 498-1', link: 'https://maps.app.goo.gl/dYX2c54mzs6Gti6QA  ' },
+                { id: 7, date: '2026-01-19', category: '滑雪', time: '10:00', name: '師傅課 (岩原雪場)', note: '⛷️ 第一天教練課程', link: 'https://iwa-ppara.com/' },
+                { id: 8, date: '2026-01-20', category: '滑雪', time: '10:00', name: '自主練習 (岩原雪場)', note: '⛷️ 自由滑行練習', link: 'https://iwa-ppara.com/' },
+                { id: 9, date: '2026-01-22', category: '滑雪', time: '10:00', name: '師傅課 (岩原雪場)', note: '⛷️ 進階教練課程', link: 'https://iwa-ppara.com/' },
+                { id: 10, date: '2026-01-23', category: '移動', time: '16:00', name: '歸還雪具 (BOO SPORTS)', note: '滑雪結束，歸還裝備', link: 'https://maps.app.goo.gl/dYX2c54mzs6Gti6QA  ' },
+                { id: 11, date: '2026-01-24', category: '新幹線', time: '07:02', name: '退房返回東京', note: '搭乘新幹線往東京車站', link: 'https://japantravel.navitime.com/zh-tw/booking/jr/search?_gl=1%2A1mlqms3%2A_ga%2AMjA3OTQyOTE0MC4xNzY3NTEzOTI0%2A_ga_83JS94BXX5%2AczE3Njc1MzIxMDEkbzMkZzAkdDE3Njc1MzIxMDckajU0JGwwJGg0NjQ5ODM3MDk.%2A_gcl_aw%2AR0NMLjE3Njc1MzIxMDMuQ2owS0NRaUF2T2pLQmhDOUFSSXNBRnZ6NWxoWTBEVDQxN3dxT1dnTC1SS2pKUEk4QUNGa3RpQWtjVzZDdDVzMXJuZHhXV2RhM183cHU5UWFBdHBORUFMd193Y0I.%2A_gcl_au%2ANzQ0MDcxODQxLjE3Njc1MTM5MjM.&adult=1&arrival=00006668&arvStationName=%E6%9D%B1%E4%BA%AC&child=0&cid=japanbullettrain.ads.pc&date=20260124&depStationName=%E8%B6%8A%E5%BE%8C%E6%B9%AF%E6%BE%A4&departure=00000702&searchType=one-way&sortType=departure&time=7' },
+                { id: 12, date: '2026-01-25', category: '航班', time: '15:20', name: 'CX451 NRT → TPE', note: '成田二航廈，返回台北桃園', link: 'https://www.cathaypacific.com' }
             ]);
-            const expenses = ref([{ name: '新幹線來回', amount: 13500 }, { name: '燒肉晚餐', amount: 6500 }, { name: '雪具租借', amount: 12000 }]);
-            const currentItems = computed(() => allItinerary.value.filter(i => i.date === selectedDate.value));
-            const totalExpense = computed(() => expenses.value.reduce((sum, e) => sum + e.amount, 0));
+
+            const currentItems = computed(() => allItinerary.value.filter(item => item.date === selectedDate.value));
             const openLink = (url) => { if (url) window.open(url, '_blank'); };
+
             const fetchWeather = async (date) => {
-                const isTokyo = ['2026-01-16', '2026-01-17', '2026-01-18', '2026-01-24', '2026-01-25'].includes(date);
+                const isTokyo = ['2026-01-16', '2026-01-17', '2026-01-24', '2026-01-25'].includes(date);
                 const lat = isTokyo ? 35.6895 : 36.9387;
                 const lon = isTokyo ? 139.6917 : 138.8106;
                 const locName = isTokyo ? 'Tokyo' : 'Yuzawa';
@@ -190,13 +232,16 @@
                 }
                 nextTick(() => lucide.createIcons());
             };
+
             watch(selectedDate, (newVal) => fetchWeather(newVal));
+
             onMounted(() => {
                 fetchWeather(selectedDate.value);
                 lucide.createIcons();
                 Sortable.create(document.getElementById('itinerary-list'), { handle: '.handle', animation: 200 });
             });
-            return { currentTab, selectedDate, jpyInput, tabs, dates, weather, allItinerary, currentItems, expenses, totalExpense, openLink };
+
+            return { currentTab, selectedDate, jpyInput, tabs, dates, weather, allItinerary, currentItems, openLink };
         }
     }).mount('#app');
 </script>
