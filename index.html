@@ -66,9 +66,7 @@
                     </div>
                     <div>
                         <div class="text-2xl font-black text-blue-900">{{ weather.temp }}°C</div>
-                        <div class="text-[11px] text-blue-400 font-bold uppercase tracking-wide">
-                            {{ weather.location }} · {{ weather.desc }}
-                        </div>
+                        <div class="text-[11px] text-blue-400 font-bold uppercase tracking-wide">{{ weather.location }} · {{ weather.desc }}</div>
                     </div>
                 </div>
                 <div class="text-right">
@@ -88,14 +86,14 @@
                                     {{ item.category }}
                                 </span>
                                 <div class="flex items-center gap-2 mt-2">
-                                    <span v-if="item.time" class="text-sm font-black text-blue-400">{{ item.time }}</span>
-                                    <h3 class="font-bold text-lg leading-tight text-gray-800">{{ item.name }}</h3>
+                                    <span v-if="item.time" :class="['text-sm font-black', item.category === '航班' ? 'text-blue-300' : 'text-blue-400']">{{ item.time }}</span>
+                                    <h3 :class="['font-bold text-lg leading-tight', item.category === '航班' ? 'text-white' : 'text-gray-800']">{{ item.name }}</h3>
                                 </div>
-                                <p v-if="item.note" class="mt-2 text-xs opacity-60 leading-relaxed italic">{{ item.note }}</p>
+                                <p v-if="item.note" :class="['mt-2 text-xs opacity-80 leading-relaxed italic', item.category === '航班' ? 'text-gray-200' : 'text-gray-500']">{{ item.note }}</p>
                             </div>
                             <div class="flex flex-col items-end gap-6">
-                                <i data-lucide="grip-vertical" class="handle w-5 h-5 text-gray-200 cursor-move"></i>
-                                <i v-if="item.link" data-lucide="external-link" class="w-5 h-5 text-blue-400"></i>
+                                <i data-lucide="grip-vertical" :class="['handle w-5 h-5 cursor-move', item.category === '航班' ? 'text-gray-500' : 'text-gray-200']"></i>
+                                <i v-if="item.link" data-lucide="external-link" :class="['w-5 h-5', item.category === '航班' ? 'text-blue-300' : 'text-blue-400']"></i>
                             </div>
                         </div>
                     </div>
@@ -105,9 +103,7 @@
 
         <div v-if="currentTab === 'info'" class="p-6 space-y-6 animate-f-up">
             <section class="bg-blue-50 rounded-[2.5rem] p-6 border border-blue-100">
-                <h2 class="text-xs font-black text-blue-400 mb-4 uppercase tracking-widest flex items-center gap-2">
-                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> 匯率換算 (0.21)
-                </h2>
+                <h2 class="text-xs font-black text-blue-400 mb-4 uppercase tracking-widest flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> 匯率換算 (0.21)</h2>
                 <div class="flex items-center gap-4">
                     <input type="number" v-model="jpyInput" class="w-1/2 p-4 bg-white rounded-2xl text-xl font-black outline-none border-none shadow-sm">
                     <i data-lucide="arrow-right" class="text-blue-200"></i>
@@ -120,7 +116,7 @@
                 <div class="grid grid-cols-1 gap-3">
                     <div class="p-5 bg-white border border-gray-100 rounded-[2rem] shadow-sm">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-black bg-slate-100 px-2 py-1 rounded">去程 2026/01/16 (五)</span>
+                            <span class="text-[10px] font-black bg-slate-100 px-2 py-1 rounded">去程 1/16 (五)</span>
                             <span class="text-sm font-black text-blue-500">CX450</span>
                         </div>
                         <div class="flex justify-between items-center text-xs mb-3 px-1">
@@ -128,13 +124,11 @@
                             <i data-lucide="arrow-right" class="w-4 h-4 text-gray-200"></i>
                             <div class="text-right"><p class="text-gray-400">16:50</p><p class="font-bold">東京成田 (NRT) T2</p></div>
                         </div>
-                        <button @click="openLink('https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-to')" class="w-full py-3 bg-slate-800 text-white rounded-xl text-[10px] font-bold flex items-center justify-center gap-2">
-                            <i data-lucide="plane-takeoff" class="w-3 h-3"></i> 查看官方時刻表
-                        </button>
+                        <button @click="openLink('https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-to')" class="w-full py-3 bg-slate-800 text-white rounded-xl text-[10px] font-bold flex items-center justify-center gap-2"><i data-lucide="plane-takeoff" class="w-3 h-3"></i> 查看官方時刻表</button>
                     </div>
                     <div class="p-5 bg-white border border-gray-100 rounded-[2rem] shadow-sm">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-black bg-slate-100 px-2 py-1 rounded">回程 2026/01/25 (日)</span>
+                            <span class="text-[10px] font-black bg-slate-100 px-2 py-1 rounded">回程 1/25 (日)</span>
                             <span class="text-sm font-black text-blue-500">CX451</span>
                         </div>
                         <div class="flex justify-between items-center text-xs mb-3 px-1">
@@ -142,65 +136,48 @@
                             <i data-lucide="arrow-right" class="w-4 h-4 text-gray-200"></i>
                             <div class="text-right"><p class="text-gray-400">18:40</p><p class="font-bold">台北桃園 (TPE) T1</p></div>
                         </div>
-                        <button @click="openLink('https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-return')" class="w-full py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-bold flex items-center justify-center gap-2 border border-slate-100">
-                            <i data-lucide="plane-landing" class="w-3 h-3"></i> 查看官方時刻表
-                        </button>
+                        <button @click="openLink('https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-return')" class="w-full py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-bold flex items-center justify-center gap-2 border border-slate-100"><i data-lucide="plane-landing" class="w-3 h-3"></i> 查看官方時刻表</button>
                     </div>
                 </div>
             </section>
 
             <section class="space-y-3">
-                <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">重要地點</h2>
+                <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">重要地點導航</h2>
                 <div class="p-5 bg-white border border-gray-100 rounded-[2rem] shadow-sm mb-3">
-                    <h3 class="font-black text-gray-800 text-md mb-1">東京車站 (Tokyo Station)</h3>
-                    <button @click="openLink('https://maps.app.goo.gl/S3wcGDMNc27ZWgECA ')" class="w-full py-3 bg-slate-100 text-slate-600 rounded-xl text-[10px] font-bold flex items-center justify-center gap-2">
-                        <i data-lucide="map-pin" class="w-3 h-3"></i> 東京車站導航
-                    </button>
+                    <h3 class="font-black text-gray-800 text-md mb-2 leading-tight">東京車站 (Tokyo Station)</h3>
+                    <button @click="openLink('https://maps.app.goo.gl/S3wcGDMNc27ZWgECA ')" class="w-full py-3 bg-slate-100 text-slate-600 rounded-xl text-[10px] font-bold flex items-center justify-center gap-2 tracking-wide"><i data-lucide="map-pin" class="w-3 h-3"></i> 東京車站地圖導航</button>
                 </div>
                 <div class="p-6 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm">
                     <h3 class="font-black text-blue-900 text-lg mb-1 leading-tight">Hotel Aster (湯澤)</h3>
                     <p class="text-xs text-gray-400 mb-4 leading-relaxed">〒949-6101 新潟縣南魚沼郡湯澤町湯澤 5-4-2</p>
                     <div class="grid grid-cols-2 gap-3">
-                        <a href="tel:+81257842809" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-[10px] font-bold flex items-center justify-center gap-2">
-                            <i data-lucide="phone" class="w-3 h-3"></i> 撥打飯店
-                        </a>
-                        <button @click="openLink('https://maps.app.goo.gl/HQ1Lsey7ZT4vw7aB8')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-[10px] font-bold flex items-center justify-center gap-2 shadow-md">
-                            <i data-lucide="map" class="w-3 h-3"></i> 導航飯店
-                        </button>
+                        <a href="tel:+81257842809" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-[10px] font-bold flex items-center justify-center gap-2"><i data-lucide="phone" class="w-3 h-3"></i> 撥打飯店</a>
+                        <button @click="openLink('https://maps.app.goo.gl/HQ1Lsey7ZT4vw7aB8')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-[10px] font-bold flex items-center justify-center gap-2 shadow-md"><i data-lucide="map" class="w-3 h-3"></i> 導航飯店</button>
                     </div>
                 </div>
             </section>
 
             <section class="space-y-3">
                 <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">雪具租借</h2>
-                <div class="p-6 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm">
+                <div class="p-6 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm border-l-4 border-l-blue-400">
                     <div class="flex justify-between items-start mb-1">
                         <h3 class="font-black text-blue-900 text-lg leading-tight">BOO SPORTS (湯澤店)</h3>
-                        <span class="bg-blue-50 text-blue-600 text-[9px] px-2 py-1 rounded-md font-bold">預約 07:00</span>
+                        <span class="bg-blue-50 text-blue-600 text-[9px] px-2 py-1 rounded-md font-bold italic">預約 07:00</span>
                     </div>
                     <p class="text-xs text-gray-400 mb-4 leading-relaxed">〒949-6101 新潟縣南魚沼郡湯澤町湯澤 498-1</p>
                     <div class="grid grid-cols-3 gap-2">
-                        <button @click="openLink('https://boosports.jp')" class="py-3 bg-gray-50 text-gray-600 rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1">
-                            <i data-lucide="globe" class="w-4 h-4"></i> 官網
-                        </button>
-                        <a href="tel:0257841510" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1">
-                            <i data-lucide="phone" class="w-4 h-4"></i> 電話
-                        </a>
-                        <button @click="openLink('https://maps.app.goo.gl/dYX2c54mzs6Gti6QA')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1 shadow-md">
-                            <i data-lucide="map" class="w-4 h-4"></i> 導航
-                        </button>
+                        <button @click="openLink('https://boosports.jp')" class="py-3 bg-gray-50 text-gray-600 rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1"><i data-lucide="globe" class="w-4 h-4"></i> 官網</button>
+                        <a href="tel:0257841510" class="py-3 bg-gray-50 text-blue-500 rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1"><i data-lucide="phone" class="w-4 h-4"></i> 電話</a>
+                        <button @click="openLink('https://maps.app.goo.gl/dYX2c54mzs6Gti6QA')" class="py-3 bg-blue-600 text-white rounded-xl text-center text-[10px] font-bold flex flex-col items-center justify-center gap-1 shadow-md"><i data-lucide="map" class="w-4 h-4"></i> 導航</button>
                     </div>
                 </div>
             </section>
         </div>
 
         <div v-if="currentTab === 'expense'" class="p-6 animate-f-up">
-            <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 px-2">工具</h2>
-            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/ruP6h1R8snyNdvTnhxPXJW" target="_blank" 
-               class="flex items-center justify-between p-8 bg-[#06C755] text-white rounded-[2.5rem] font-black shadow-lg shadow-green-100 transition-all active:scale-95">
-                <div class="flex items-center gap-4 text-lg">
-                    <i data-lucide="users" class="w-6 h-6"></i> LINE Split 分帳群組
-                </div>
+            <h2 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 px-2">分帳工具</h2>
+            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/ruP6h1R8snyNdvTnhxPXJW" target="_blank" class="flex items-center justify-between p-8 bg-[#06C755] text-white rounded-[2.5rem] font-black shadow-lg shadow-green-100 transition-all active:scale-95">
+                <div class="flex items-center gap-4 text-lg"><i data-lucide="users" class="w-6 h-6"></i> LINE Split 分帳群組</div>
                 <i data-lucide="chevron-right" class="w-6 h-6"></i>
             </a>
         </div>
@@ -240,16 +217,16 @@
             ];
 
             const allItinerary = ref([
-                { id: 1, date: '2026-01-16', category: '航班', time: '12:50', name: 'CX450 TPE → NRT', note: '抵達成田 (16:50)', link: 'https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-to' },
+                { id: 1, date: '2026-01-16', category: '航班', time: '12:50', name: 'CX450 TPE → NRT', note: '抵達成田 (16:50)，前往東京市區', link: 'https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-to' },
                 { id: 2, date: '2026-01-17', category: '景點', time: 'ALL DAY', name: '東京自由行', note: '東京車站巡禮', link: 'https://maps.app.goo.gl/S3wcGDMNc27ZWgECA ' },
-                { id: 3, date: '2026-01-18', category: '新幹線', time: '14:46', name: 'TOKI 325 往新潟', note: '新幹線預訂連結 (Navitime)', link: 'https://japantravel.navitime.com/zh-tw/booking/jr/search?_gl=1%2An9ie4i%2A_ga%2AMjA3OTQyOTE0MC4xNzY3NTEzOTI0%2A_ga_83JS94BXX5%2AczE3Njc1MzQ4MTIkbzQkZzAkdDE3Njc1MzQ4MTivkajU1JGwwJGgxMjc1MzExMTMx%2A_gcl_aw%2AR0NMLjE3Njc1MzQ4MTMuQ2owS0NRaUF2T2pLQmhDOUFSSXNBRnZ6NWxoaGFLUm9qejltczBxWlpHbFYwM0JxblZXeFcyUWlWcDlDVkI5QU8xYTE2MXZZVlFYU2JKY2FBZ1o2RUFMd193Y0I.%2A_gcl_au%2ANzQ0MDcxODQxLjE3Njc1MTM5MjM.&adult=1&arrival=00000702&arvStationName=%E8%B6%8A%E5%BE%8C%E6%B9%AF%E6%BE%A4&child=0&cid=japanbullettrain.ads.pc&date=20260118&depStationName=%E6%9D%B1%E4%BA%AC&departure=00006668&searchType=one-way&sortType=departure&time=9' },
+                { id: 3, date: '2026-01-18', category: '新幹線', time: '14:46', name: 'TOKI 325 往新潟', note: '上野發車 → 15:56 抵達越後湯澤', link: 'https://japantravel.navitime.com/zh-tw/booking/jr/search?_gl=1%2An9ie4i%2A_ga%2AMjA3OTQyOTE0MC4xNzY3NTEzOTI0%2A_ga_83JS94BXX5%2AczE3Njc1MzQ4MTIkbzQkZzAkdDE3Njc1MzQ4MTivkajU1JGwwJGgxMjc1MzExMTMx%2A_gcl_aw%2AR0NMLjE3Njc1MzQ4MTMuQ2owS0NRaUF2T2pLQmhDOUFSSXNBRnZ6NWxoaGFLUm9qejltczBxWlpHbFYwM0JxblZXeFcyUWlWcDlDVkI5QU8xYTE2MXZZVlFYU2JKY2FBZ1o2RUFMd193Y0I.%2A_gcl_au%2ANzQ0MDcxODQxLjE3Njc1MTM5MjM.&adult=1&arrival=00000702&arvStationName=%E8%B6%8A%E5%BE%8C%E6%B9%AF%E6%BE%A4&child=0&cid=japanbullettrain.ads.pc&date=20260118&depStationName=%E6%9D%B1%E4%BA%AC&departure=00006668&searchType=one-way&sortType=departure&time=9' },
                 { id: 4, date: '2026-01-18', category: '住宿', time: '16:15', name: 'Hotel Aster Check-in', note: '入住越後湯澤', link: 'https://maps.app.goo.gl/HQ1Lsey7ZT4vw7aB8' },
                 { id: 5, date: '2026-01-18', category: '美食', time: '17:00', name: '燒肉 Sakaeya', note: '🥩 建議 17:00 開店即入座', link: 'https://share.google/X3fiagZ1saItbdgcX' },
                 { id: 6, date: '2026-01-19', category: '雪具', time: '07:00', name: 'BOO SPORTS 取雪具', note: '新潟縣南魚沼郡湯澤町湯澤 498-1', link: 'https://maps.app.goo.gl/dYX2c54mzs6Gti6QA' },
-                { id: 7, date: '2026-01-19', category: '滑雪', time: '10:00', name: '師傅特訓 (岩原雪場)', note: '⛷️ 第一天教練特訓課程', link: 'https://iwa-ppara.com/' },
+                { id: 7, date: '2026-01-19', category: '滑雪', time: '10:00', name: '⛷️ 師傅特訓', link: 'https://iwa-ppara.com/' },
                 { id: 8, date: '2026-01-20', category: '滑雪', time: '10:00', name: '自主練習 (岩原雪場)', note: '⛷️ 自由滑行練習', link: 'https://iwa-ppara.com/' },
                 { id: 9, date: '2026-01-21', category: '滑雪', time: 'FREE', name: '自主練習或休息', note: '岩原雪場 (視體力決定)', link: 'https://maps.app.goo.gl/4MdiyHh167888gQ97  ' },
-                { id: 10, date: '2026-01-22', category: '滑雪', time: '10:00', name: '師傅特訓 (岩原雪場)', note: '⛷️ 進階教練特訓課程', link: 'https://iwa-ppara.com/' },
+                { id: 10, date: '2026-01-22', category: '滑雪', time: '10:00', name: '⛷️ 師傅特訓', link: 'https://iwa-ppara.com/' },
                 { id: 11, date: '2026-01-23', category: '移動', time: '16:00', name: '歸還雪具 (BOO SPORTS)', note: '滑雪結束，歸還裝備', link: 'https://maps.app.goo.gl/dYX2c54mzs6Gti6QA' },
                 { id: 12, date: '2026-01-24', category: '新幹線', time: '07:02', name: '退房返回東京', note: '搭乘新幹線往東京車站', link: 'https://japantravel.navitime.com/zh-tw/booking/jr/search?adult=1&arrival=00006668&arvStationName=%E6%9D%B1%E4%BA%AC&child=0&cid=japanbullettrain.ads.pc&date=20260124&depStationName=%E8%B6%8A%E5%BE%8C%E6%B9%AF%E6%BE%A4&departure=00000702&searchType=one-way&sortType=departure&time=7' },
                 { id: 13, date: '2026-01-25', category: '航班', time: '15:20', name: 'CX451 NRT → TPE', note: '成田二航廈，返回台北桃園', link: 'https://www.cathaypacific.com/cx/zh_TW/book-a-trip/timetable.html#tab-return' }
