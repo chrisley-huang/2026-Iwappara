@@ -1,338 +1,191 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Iwappara Snow Trip 2026</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        [v-cloak] { display: none; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #E6F3F8; overflow-x: hidden; }
+        .banner-h { height: 250px; }
+        .content-card { margin-top: -40px; border-radius: 40px 40px 0 0; background: white; min-height: 85vh; position: relative; z-index: 10; padding-bottom: 120px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .floating-tabs {
+            position: absolute; right: 16px; top: 185px; z-index: 50;
+            display: flex; gap: 8px; background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); padding: 6px 12px; border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5);
+        }
+        .sortable-ghost { opacity: 0.3; background: #dbeafe; border: 2px dashed #3b82f6; }
+        .item-card { transition: transform 0.2s; -webkit-tap-highlight-color: transparent; }
+        .item-card:active { transform: scale(0.97); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-f-up { animation: fadeInUp 0.4s ease-out forwards; }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="zh-TW"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Iwappara Snow Trip 2026&lt;/title&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Noto Sans TC', sans-serif; background-color: #E6F3F8; overflow-x: hidden; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.banner-h { height: 250px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.content-card { margin-top: -40px; border-radius: 40px 40px 0 0; background: white; min-height: 85vh; position: relative; z-index: 10; padding-bottom: 120px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.no-scrollbar::-webkit-scrollbar { display: none; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 浮動分頁按鈕設計 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.floating-tabs {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute; right: 16px; top: 185px; z-index: 50;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex; gap: 8px; background: rgba(255, 255, 255, 0.85);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(12px); padding: 6px 12px; border-radius: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 拖曳時的視覺效果 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sortable-ghost { opacity: 0.3; background: #dbeafe; border: 2px dashed #3b82f6; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 行程卡片陰影 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.item-card { transition: transform 0.2s; -webkit-tap-highlight-color: transparent; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.item-card:active { transform: scale(0.97); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 動畫 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.animate-f-up { animation: fadeInUp 0.4s ease-out forwards; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="app" v-cloak&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="banner-h w-full relative overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;img src="p1.jpg" class="w-full h-full object-cover"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="floating-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button v-for="tab in tabs" :key="tab.id" @click="currentTab = tab.id"</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>:class="['p-2 rounded-full transition-all', currentTab === tab.id ? 'bg-blue-500 text-white' : 'text-gray-400']"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i :data-lucide="tab.icon" class="w-5 h-5"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="content-card shadow-2xl"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div v-if="currentTab === 'itinerary'" class="p-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex overflow-x-auto no-scrollbar gap-4 mb-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div v-for="d in dates" :key="d.full" @click="selectedDate = d.full"</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>:class="['flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-2xl transition-all border',<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                              </span>selectedDate === d.full ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-105' : 'bg-gray-50 text-gray-400 border-gray-100']"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-bold mb-1"&gt;{{ d.week }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xl font-black"&gt;{{ d.day }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-4 mb-8 flex items-center justify-between border border-blue-100 shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-white p-3 rounded-2xl shadow-inner"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;i :data-lucide="weather.icon" class="text-blue-500 w-8 h-8"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-2xl font-black text-blue-900"&gt;{{ weather.temp }}°C&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-xs text-blue-400 font-medium"&gt;體感 {{ weather.feels_like }}°C · {{ weather.desc }}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-right"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-[10px] text-blue-300 font-bold uppercase tracking-wider"&gt;Echigo-Yuzawa&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-[10px] text-gray-400"&gt;2026/01/{{ dates.find(d =&gt; d.full === selectedDate)?.day }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="itinerary-list" class="space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div v-for="(item, idx) in currentItems" :key="item.id" class="animate-f-up"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div v-if="idx &gt; 0" class="flex items-center gap-2 ml-12 my-2 text-gray-400"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="h-8 w-0.5 bg-gray-100 absolute left-8 -top-6"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;i :data-lucide="item.transIcon || 'move-right'" class="w-3 h-3"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[10px] font-bold tracking-tighter"&gt;{{ item.transTime || '15 mins' }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div :class="['item-card p-4 rounded-3xl border relative overflow-hidden',<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                  </span>item.category === '航班' ? 'bg-indigo-900 text-white border-none shadow-xl' : 'bg-white border-gray-100 shadow-sm']"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div @click="openGoogleMap(item.name)" class="flex justify-between items-start cursor-pointer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="flex items-center gap-2 mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span :class="['text-[10px] px-2 py-0.5 rounded-lg font-bold uppercase tracking-widest',<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                                   </span>item.category === '航班' ? 'bg-indigo-700 text-indigo-100' : 'bg-blue-50 text-blue-500']"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>{{ item.category }}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;h3 class="font-bold text-lg leading-tight mb-1"&gt;{{ item.name }}&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs opacity-70"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span v-if="item.time" class="flex items-center gap-1"&gt;&lt;i data-lucide="clock" class="w-3 h-3"&gt;&lt;/i&gt;{{ item.time }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span v-if="item.price" class="flex items-center gap-1"&gt;&lt;i data-lucide="ticket" class="w-3 h-3"&gt;&lt;/i&gt;{{ item.price }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p v-if="item.note" class="mt-3 text-[11px] opacity-60 leading-relaxed italic border-l-2 border-blue-300/30 pl-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>{{ item.note }}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex flex-col items-end gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;i data-lucide="grip-vertical" class="handle w-5 h-5 text-gray-200 cursor-move"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;i data-lucide="navigation" class="w-5 h-5 text-blue-400"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="fixed bottom-28 right-6 w-14 h-14 bg-blue-500 text-white rounded-full shadow-2xl flex items-center justify-center z-50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i data-lucide="plus" class="w-8 h-8"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div v-if="currentTab === 'info'" class="p-6 space-y-8 animate-f-up"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="bg-gray-50 rounded-3xl p-5 border border-gray-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-sm font-bold text-gray-400 mb-4 flex items-center gap-2 uppercase tracking-widest"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i data-lucide="refresh-cw" class="w-4 h-4 text-blue-500"&gt;&lt;/i&gt; 匯率換算 (0.21)</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="number" v-model="jpyInput" class="w-1/2 p-4 bg-white rounded-2xl text-xl font-black outline-none shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i data-lucide="arrow-right" class="text-gray-300"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="w-1/2 text-2xl font-black text-blue-600"&gt;NT$ {{ Math.round(jpyInput * 0.21) }}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-sm font-bold text-gray-400 flex items-center gap-2 uppercase tracking-widest"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i data-lucide="plane" class="w-4 h-4 text-blue-500"&gt;&lt;/i&gt; 航班資訊</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div v-for="f in flights" class="p-5 bg-white rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs font-black bg-blue-50 text-blue-500 px-3 py-1 rounded-full uppercase"&gt;{{ f.type }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs font-bold text-gray-300"&gt;{{ f.code }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-2xl font-black text-gray-800"&gt;{{ f.depTime }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-[10px] font-bold text-gray-400"&gt;{{ f.depCity }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex-1 flex flex-col items-center px-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-[10px] text-blue-300 mb-1"&gt;{{ f.duration }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="w-full h-[1px] bg-gray-100 relative"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;i data-lucide="plane" class="w-3 h-3 text-blue-200 absolute -top-1.5 left-1/2 -translate-x-1/2"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-2xl font-black text-gray-800"&gt;{{ f.arrTime }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-[10px] font-bold text-gray-400"&gt;{{ f.arrCity }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="grid grid-cols-2 gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="tel:110" class="p-4 bg-red-50 rounded-2xl flex items-center gap-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i data-lucide="shield-alert" class="text-red-500"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-bold text-red-700"&gt;警察 110&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="tel:119" class="p-4 bg-orange-50 rounded-2xl flex items-center gap-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i data-lucide="ambulance" class="text-orange-500"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-bold text-orange-700"&gt;救護 119&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div v-if="currentTab === 'expense'" class="p-6 animate-f-up"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-blue-600 rounded-[40px] p-8 text-white mb-8 shadow-2xl shadow-blue-200 relative overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i data-lucide="banknote" class="absolute -right-10 -bottom-10 w-48 h-48 opacity-10"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-xs font-bold opacity-60 mb-2 uppercase tracking-widest"&gt;Total Estimated Spending&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-4xl font-black tracking-tight"&gt;¥ {{ totalExpense.toLocaleString() }}&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4 text-xs font-medium opacity-80"&gt;≈ NT$ {{ Math.round(totalExpense * 0.21).toLocaleString() }}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://liff.line.me/1655320992-Y8GowEpw/g/ruP6h1R8snyNdvTnhxPXJW" target="_blank"</p>
-<p class="p1"><span class="Apple-converted-space">               </span>class="flex items-center justify-between p-5 bg-[#06C755] text-white rounded-3xl mb-8 shadow-lg shadow-green-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-3 font-bold"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i data-lucide="users" class="w-5 h-5"&gt;&lt;/i&gt; LINE Split 群組</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i data-lucide="external-link" class="w-4 h-4"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/a&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest"&gt;Expense History&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div v-for="ex in expenses" class="flex justify-between items-center p-4 bg-gray-50 rounded-2xl border border-gray-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-gray-800"&gt;{{ ex.name }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-[10px] text-gray-400 uppercase tracking-tighter"&gt;{{ ex.date }} · {{ ex.category }}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-right font-black text-blue-600"&gt;¥{{ ex.amount }}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="fixed bottom-28 right-6 w-14 h-14 bg-green-500 text-white rounded-full shadow-2xl flex items-center justify-center z-50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i data-lucide="plus" class="w-8 h-8"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="fixed bottom-0 w-full bg-white/80 backdrop-blur-xl border-t border-gray-100 px-10 py-5 flex justify-around items-center z-[100] rounded-t-[40px] shadow-2xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button v-for="tab in tabs" @click="currentTab = tab.id"</p>
-<p class="p1"><span class="Apple-converted-space">                </span>:class="['flex flex-col items-center gap-1', currentTab === tab.id ? 'text-blue-500' : 'text-gray-300']"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;i :data-lucide="tab.icon" class="w-6 h-6"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-[9px] font-black uppercase"&gt;{{ tab.id }}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const { createApp, ref, computed, onMounted, nextTick } = Vue;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>createApp({</p>
-<p class="p1"><span class="Apple-converted-space">        </span>setup() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentTab = ref('itinerary');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const selectedDate = ref('2026-01-18');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const jpyInput = ref(10000);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const tabs = [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'itinerary', icon: 'map-pin' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'info', icon: 'info' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'shopping', icon: 'shopping-cart' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'expense', icon: 'circle-dollar-sign' }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const dates = [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Fri', day: '16', full: '2026-01-16' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Sat', day: '17', full: '2026-01-17' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Sun', day: '18', full: '2026-01-18' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Mon', day: '19', full: '2026-01-19' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Tue', day: '20', full: '2026-01-20' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Wed', day: '21', full: '2026-01-21' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Thu', day: '22', full: '2026-01-22' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Fri', day: '23', full: '2026-01-23' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Sat', day: '24', full: '2026-01-24' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ week: 'Sun', day: '25', full: '2026-01-25' },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const weather = ref({ temp: '--', feels_like: '--', icon: 'sun', desc: '正在抓取天氣...' });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const allItinerary = ref([</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 1, date: '2026-01-16', category: '航班', name: 'CX450 TPE → NRT', time: '12:50 - 16:50', note: '抵達成田，前往東京市區', transIcon: 'plane' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 2, date: '2026-01-18', category: '交通', name: '新幹線 TOKI 325', time: '14:46 - 15:56', note: '🚅 上野發車 → 抵達越後湯澤', transIcon: 'train', transTime: '移動時間 1h 10m' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 3, date: '2026-01-18', category: '住宿', name: 'Hotel Aster Check-in', time: '16:30', note: '新潟縣湯澤町', transIcon: 'car', transTime: '15 mins' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 4, date: '2026-01-18', category: '美食', name: 'Yakiniku Sakaeya (燒肉)', time: '17:00', note: '🥩 必吃燒肉店', transIcon: 'person-standing', transTime: '徒步 5 mins' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 5, date: '2026-01-19', category: '景點', name: 'BOO SPORTS 取雪具', time: '07:00', note: '預約租借', transIcon: 'bus' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 6, date: '2026-01-19', category: '景點', name: '岩原滑雪場 (師傅課)', time: '10:00', note: '⛷️ 課程開始', transIcon: 'snowflake' }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>]);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const flights = [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ type: 'Departure', code: 'CX450', depCity: 'TPE', depTime: '12:50', arrCity: 'NRT', arrTime: '16:50', duration: '3h 00m' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ type: 'Return', code: 'CX451', depCity: 'NRT', depTime: '15:20', arrCity: 'TPE', arrTime: '18:40', duration: '3h 20m' }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const expenses = ref([</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ name: '燒肉晚餐', category: '飲食', date: '01/18', amount: 5500 },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ name: '雪具租借', category: '滑雪', date: '01/19', amount: 8200 }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>]);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentItems = computed(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return allItinerary.value.filter(item =&gt; item.date === selectedDate.value);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalExpense = computed(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return expenses.value.reduce((sum, ex) =&gt; sum + ex.amount, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const openGoogleMap = (query) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>window.open(`https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(query)}`, '_blank');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const fetchWeather = async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const API_KEY = '572e879037c8e547385f02c63814472c'; // 這是公共測試 key，建議之後換成自己的</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const LAT = 36.9387; const LON = 138.8106;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${LAT}&amp;lon=${LON}&amp;appid=${API_KEY}&amp;units=metric&amp;lang=zh_tw`);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const data = await response = await res.json();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const iconMap = { 'Clear': 'sun', 'Clouds': 'cloud', 'Rain': 'cloud-rain', 'Snow': 'cloud-snow', 'Thunderstorm': 'zap' };</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>weather.value = {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>temp: Math.round(data.main.temp),</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>feels_like: Math.round(data.main.feels_like),</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>icon: iconMap[data.weather[0].main] || 'cloud',</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>desc: data.weather[0].description</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>};</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (e) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>weather.value = { temp: -2, feels_like: -5, icon: 'cloud-snow', desc: '下雪中' };</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>onMounted(async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>await fetchWeather();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>lucide.createIcons();</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// 初始化拖拽</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const list = document.getElementById('itinerary-list');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Sortable.create(list, {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>handle: '.handle',</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>animation: 200,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>ghostClass: 'sortable-ghost'</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>currentTab, selectedDate, jpyInput, tabs, dates, weather,<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>allItinerary, currentItems, flights, expenses, totalExpense, openGoogleMap</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}).mount('#app');</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<div id="app" v-cloak>
+    <div class="banner-h w-full relative overflow-hidden">
+        <img src="p1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=800&q=80'">
+        <div class="floating-tabs">
+            <button v-for="tab in tabs" :key="tab.id" @click="currentTab = tab.id"
+                    :class="['p-2 rounded-full transition-all', currentTab === tab.id ? 'bg-blue-500 text-white' : 'text-gray-400']">
+                <i :data-lucide="tab.icon" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="content-card shadow-2xl">
+        <div v-if="currentTab === 'itinerary'" class="p-6">
+            <div class="flex overflow-x-auto no-scrollbar gap-4 mb-6">
+                <div v-for="d in dates" :key="d.full" @click="selectedDate = d.full"
+                     :class="['flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-2xl transition-all border', 
+                              selectedDate === d.full ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-105' : 'bg-gray-50 text-gray-400 border-gray-100']">
+                    <span class="text-xs font-bold mb-1">{{ d.week }}</span>
+                    <span class="text-xl font-black">{{ d.day }}</span>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-4 mb-8 flex items-center justify-between border border-blue-100 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white p-3 rounded-2xl shadow-inner">
+                        <i :data-lucide="weather.icon" class="text-blue-500 w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black text-blue-900">{{ weather.temp }}°C</div>
+                        <div class="text-xs text-blue-400 font-medium">體感 {{ weather.feels_like }}°C · {{ weather.desc }}</div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-blue-300 font-bold uppercase tracking-wider">Echigo-Yuzawa</p>
+                    <p class="text-[10px] text-gray-400">2026/01/{{ dates.find(d => d.full === selectedDate)?.day }}</p>
+                </div>
+            </div>
+
+            <div id="itinerary-list" class="space-y-4">
+                <div v-for="(item, idx) in currentItems" :key="item.id" class="animate-f-up">
+                    <div v-if="idx > 0" class="flex items-center gap-2 ml-12 my-2 text-gray-400">
+                        <i :data-lucide="item.transIcon || 'move-right'" class="w-3 h-3"></i>
+                        <span class="text-[10px] font-bold tracking-tighter">{{ item.transTime || '15 mins' }}</span>
+                    </div>
+                    <div :class="['item-card p-4 rounded-3xl border relative overflow-hidden', 
+                                  item.category === '航班' ? 'bg-indigo-900 text-white border-none shadow-xl' : 'bg-white border-gray-100 shadow-sm']">
+                        <div @click="openGoogleMap(item.name)" class="flex justify-between items-start cursor-pointer">
+                            <div class="flex-1">
+                                <span :class="['text-[10px] px-2 py-0.5 rounded-lg font-bold uppercase tracking-widest', 
+                                               item.category === '航班' ? 'bg-indigo-700 text-indigo-100' : 'bg-blue-50 text-blue-500']">
+                                    {{ item.category }}
+                                </span>
+                                <h3 class="font-bold text-lg leading-tight mt-1">{{ item.name }}</h3>
+                                <p v-if="item.note" class="mt-2 text-[11px] opacity-60 italic">{{ item.note }}</p>
+                            </div>
+                            <div class="flex flex-col items-end gap-4">
+                                <i data-lucide="grip-vertical" class="handle w-5 h-5 text-gray-200 cursor-move"></i>
+                                <i data-lucide="navigation" class="w-5 h-5 text-blue-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="currentTab === 'info'" class="p-6 space-y-8 animate-f-up">
+            <section class="bg-gray-50 rounded-3xl p-5 border border-gray-100">
+                <h2 class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-widest">匯率換算 (0.21)</h2>
+                <div class="flex items-center gap-4">
+                    <input type="number" v-model="jpyInput" class="w-1/2 p-4 bg-white rounded-2xl text-xl font-black outline-none">
+                    <div class="w-1/2 text-2xl font-black text-blue-600">NT$ {{ Math.round(jpyInput * 0.21) }}</div>
+                </div>
+            </section>
+        </div>
+
+        <div v-if="currentTab === 'expense'" class="p-6 animate-f-up">
+            <div class="bg-blue-600 rounded-[40px] p-8 text-white mb-8 shadow-2xl relative overflow-hidden">
+                <h2 class="text-4xl font-black">¥ {{ totalExpense.toLocaleString() }}</h2>
+                <p class="text-xs opacity-60">Total Estimated Spending</p>
+            </div>
+            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/ruP6h1R8snyNdvTnhxPXJW" target="_blank" class="block p-5 bg-[#06C755] text-white rounded-3xl text-center font-bold">LINE Split 群組</a>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 w-full bg-white/80 backdrop-blur-xl border-t border-gray-100 px-10 py-5 flex justify-around items-center z-[100] rounded-t-[40px]">
+        <button v-for="tab in tabs" @click="currentTab = tab.id" :class="currentTab === tab.id ? 'text-blue-500' : 'text-gray-300'">
+            <i :data-lucide="tab.icon" class="w-6 h-6"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    const { createApp, ref, computed, onMounted, nextTick } = Vue;
+
+    createApp({
+        setup() {
+            const currentTab = ref('itinerary');
+            const selectedDate = ref('2026-01-18');
+            const jpyInput = ref(10000);
+            const tabs = [
+                { id: 'itinerary', icon: 'map-pin' },
+                { id: 'info', icon: 'info' },
+                { id: 'shopping', icon: 'shopping-cart' },
+                { id: 'expense', icon: 'circle-dollar-sign' }
+            ];
+            const dates = [
+                { week: 'Fri', day: '16', full: '2026-01-16' },
+                { week: 'Sat', day: '17', full: '2026-01-17' },
+                { week: 'Sun', day: '18', full: '2026-01-18' },
+                { week: 'Mon', day: '19', full: '2026-01-19' },
+                { week: 'Tue', day: '20', full: '2026-01-20' },
+                { week: 'Wed', day: '21', full: '2026-01-21' },
+                { week: 'Thu', day: '22', full: '2026-01-22' },
+                { week: 'Fri', day: '23', full: '2026-01-23' },
+                { week: 'Sat', day: '24', full: '2026-01-24' },
+                { week: 'Sun', day: '25', full: '2026-01-25' },
+            ];
+            const weather = ref({ temp: '--', feels_like: '--', icon: 'sun', desc: '抓取中...' });
+            const allItinerary = ref([
+                { id: 1, date: '2026-01-16', category: '航班', name: 'CX450 TPE → NRT', note: '抵達成田，前往市區', transIcon: 'plane' },
+                { id: 2, date: '2026-01-18', category: '交通', name: '新幹線 TOKI 325', note: '上野發車 → 抵達越後湯澤', transIcon: 'train' },
+                { id: 3, date: '2026-01-18', category: '住宿', name: 'Hotel Aster Check-in', note: '新潟縣湯澤町', transIcon: 'car' },
+                { id: 4, date: '2026-01-18', category: '美食', name: '燒肉 Sakaeya', note: '必吃燒肉店', transIcon: 'person-standing' },
+            ]);
+            const expenses = ref([{ name: '燒肉晚餐', amount: 5500 }, { name: '新幹線', amount: 6500 }]);
+            const currentItems = computed(() => allItinerary.value.filter(item => item.date === selectedDate.value));
+            const totalExpense = computed(() => expenses.value.reduce((sum, ex) => sum + ex.amount, 0));
+            const openGoogleMap = (q) => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`, '_blank');
+
+            const fetchWeather = async () => {
+                try {
+                    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=36.93&lon=138.81&appid=572e879037c8e547385f02c63814472c&units=metric&lang=zh_tw`);
+                    const data = await res.json();
+                    const iconMap = { 'Clear': 'sun', 'Clouds': 'cloud', 'Rain': 'cloud-rain', 'Snow': 'cloud-snow' };
+                    weather.value = {
+                        temp: Math.round(data.main.temp),
+                        feels_like: Math.round(data.main.feels_like),
+                        icon: iconMap[data.weather[0].main] || 'cloud',
+                        desc: data.weather[0].description
+                    };
+                } catch (e) {
+                    weather.value = { temp: -2, feels_like: -5, icon: 'cloud-snow', desc: '下雪中' };
+                }
+            };
+
+            onMounted(() => {
+                fetchWeather();
+                lucide.createIcons();
+                Sortable.create(document.getElementById('itinerary-list'), { handle: '.handle', animation: 200 });
+            });
+
+            return { currentTab, selectedDate, jpyInput, tabs, dates, weather, allItinerary, currentItems, expenses, totalExpense, openGoogleMap };
+        }
+    }).mount('#app');
+</script>
 </body>
 </html>
